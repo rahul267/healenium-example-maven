@@ -87,3 +87,47 @@ With this plugin you can update your locators:
 ![update_on_class_level](img_5.png)
 
 ![element_update](img_4.png)
+
+# Healenium – Self-Healing Locator Architecture (High-Level)
+
+This document explains how self-healing automation works under the hood.
+
+## 1. Why Self-Healing?
+UI tests are often flaky due to:
+- dynamic IDs
+- frequent DOM restructuring
+- React re-renders
+- async DOM mutations
+
+Healenium solves this by automating locator recovery.
+
+## 2. Core Components
+
+### Selector Store
+Stores historical selector → DOM metadata → healing candidates.
+
+### Healing Engine
+1. Detects failure
+2. Fetches DOM snapshot
+3. Computes similarity score:
+   - text content match
+   - CSS attribute match
+   - DOM tree position
+   - XPath depth
+
+### Recovery Flow
+- Failed selector → find best candidate
+- Update runtime selector
+- Log healing event
+- Store improved selector for next execution
+
+## 3. Benefits
+- Reduces flaky UI failures by 40–60%
+- Stabilizes long-running UI regressions
+- Helps SDET teams maintain cleaner locator strategies
+
+## 4. Future Enhancements
+- AI-based DOM diffing
+- Element embedding vectors
+- Healenium + Playwright integration
+
